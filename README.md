@@ -43,7 +43,6 @@ El sistema sigue un ciclo de detección y respuesta automatizado:
 *   **IDS/NIDS:** Suricata
 *   **Automatización (SOAR):** Ansible 
 *   **Análisis de IA (Posible Ampliación):** Script usando Ollama
-![IA](https://imgs.search.brave.com/WFjGh3i6JIJJT67quVheCiIh_vOau3dV6bPJwtT6UfE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdmdz/dGFjay5jb20vbWVk/aWEvaW1nL29sbGFt/YS1haS1sb2dvLUhh/TjUxNjUyMTcud2Vi/cA)
     
 ## 📄 Licencia
 Este proyecto se ha desarrollado como parte de un trabajo académico.
