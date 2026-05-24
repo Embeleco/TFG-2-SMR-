@@ -52,10 +52,10 @@ El laboratorio se compone de tres máquinas virtuales interconectadas en una red
 
 ## 📚 Bibliografía y Soporte de IA
 
-Este proyecto ha contado con una fase intensiva de investigación y desarrollo apoyada por **Inteligencia Artificial Generativa**, documentando un total de **12 sesiones de consultoría técnica** centradas en:
-*   **Depuración de Scripts:** Lógica en Bash para Active Response y procesamiento de JSON.
-*   **Hardening de Configuración:** Modificación de `ossec.conf`, gestión de reglas y protocolos de backup.
-*   **Orquestación:** Diseño de Playbooks de Ansible para la contención de incidentes.
+Este proyecto ha contado con una fase intensiva de investigación y desarrollo apoyada por **Inteligencia Artificial Generativa** foros, videos de Youtube... centradas en:
+*   **Depuración de Scripts:** Lógica en Bash y Python.
+*   **Hardening de Configuración:** Modificación de archivos y gestión de reglas
+*   **Orquestación:** Diseño de Playbooks de Ansible, Wazuh y suricata para la contención de incidentes.
 *   **Integración de APIs:** Conexión de flujos de trabajo entre el SIEM y plataformas de mensajería externa.
 
 ---
