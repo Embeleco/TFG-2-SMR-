@@ -1,48 +1,64 @@
-# Laboratorio de Seguridad: Detección y Respuesta Automatizada (SOAR)
+# Laboratorio de Seguridad: Detección y Respuesta Automatizada (SOAR) con ChatOps
 
-Este proyecto implementa un laboratorio de seguridad básico pero completo, diseñado para detectar actividades maliciosas en una red, centralizar los registros y ejecutar respuestas automáticas ante incidentes, simulando un entorno de un Centro de Operaciones de Seguridad (SOC).
+Este proyecto implementa un laboratorio de seguridad avanzado diseñado para detectar actividades maliciosas en red, centralizar registros y ejecutar respuestas automáticas mediante una arquitectura **SOAR** (Security Orchestration, Automation and Response), integrando la colaboración humana en tiempo real a través de **Slack**.
+
+---
 
 ## 🎯 Objetivo
 
-El objetivo principal es construir un sistema que sea capaz de:
-1.  **Detectar** ataques de red en tiempo real.
-2.  **Centralizar** todas las alertas y eventos en un único punto.
-3.  **Responder** de forma automática y aislada para contener la amenaza sin intervención manual.
+El objetivo principal es construir un sistema de defensa activa capaz de:
+1.  **Detectar** amenazas complejas (escaneos de red, ataques dirigidos) en tiempo real.
+2.  **Responder** de forma automática bloqueando al atacante y protegiendo a la víctima mediante aislamiento dinámico.
+3.  **Coordinar** la respuesta del equipo de seguridad mediante una plataforma de comunicación empresarial (ChatOps).
+
+---
 
 ## 🏗️ Arquitectura del Laboratorio
 
-El laboratorio se compone de tres máquinas virtuales interconectadas en una red interna aislada (`10.0.0.0/8`):
+El laboratorio se compone de tres máquinas virtuales interconectadas en una red aislada (`10.0.0.0/8`):
 
-*   **Máquina Atacante (Kali Linux - `10.0.0.1`):** Equipo utilizado para lanzar ataques y generar tráfico malicioso con el fin de probar el sistema.
-*   **Máquina Víctima (Debian/Ubuntu - `10.0.0.3`):** El objetivo de los ataques. Monitorizada por un agente que envía sus logs al servidor central.
-*   **Servidor de Defensa (Debian/Ubuntu - `10.0.0.2`):** El cerebro de la operación. Aloja las siguientes herramientas:
-    *   **Wazuh:** Plataforma SIEM/XDR para la centralización de logs, correlación de eventos y generación de alertas.
-    *   **Suricata:** Sistema de Detección de Intrusiones en Red (IDS/NIDS) que analiza el tráfico en busca de firmas de ataque.
-    *   **Ansible:** Herramienta de automatización (SOAR) que ejecuta las acciones de respuesta.
+*   **Máquina Atacante (Kali Linux - `10.0.0.1`):** Utilizada para realizar escaneos de puertos (Nmap) y lanzamientos de ataques para probar la eficacia del sistema.
+*   **Máquina Víctima (Debian/Ubuntu - `10.0.0.3`):** El activo a proteger, monitorizado por un agente de Wazuh y gestionado remotamente por Ansible para bloqueos de emergencia.
+*   **Servidor de Defensa (Debian/Ubuntu - `10.0.0.2`):** El "cerebro" del sistema, que aloja:
+    *   **Wazuh:** SIEM/XDR encargado de la correlación de eventos y gestión de alertas.
+    *   **Suricata:** IDS/NIDS que analiza el tráfico de red en busca de firmas de ataque (escaneos, DoS, etc.).
+    *   **Ansible:** Orquestador SOAR que ejecuta Playbooks de contención inmediata.
+    *   **Slack API:** Integración para notificaciones críticas y triaje colaborativo.
 
-## ⚙️ Flujo de Trabajo
+---
 
-El sistema sigue un ciclo de detección y respuesta automatizado:
+## ⚙️ Flujo de Trabajo y Funcionalidades
 
-1.  **Detección:**
-    *   **Suricata** monitoriza el tráfico de red entre el atacante y la víctima, generando alertas al detectar patrones maliciosos (ej. escaneos de puertos).
-    *   El **Agente Wazuh** en la máquina víctima monitoriza los eventos locales (ej. intentos de login fallidos) y los envía al servidor Wazuh.
+### 1. Detección y Defensa Automática (SOAR)
+*   **Detección Avanzada:** Suricata identifica patrones maliciosos que van desde simples pings hasta escaneos de puertos complejos.
+*   **Bloqueo Dual Inmediato:** Ante alertas críticas, Wazuh activa Ansible para aplicar reglas de `iptables`. El sistema bloquea la IP del atacante y, simultáneamente, refuerza la seguridad de la víctima para evitar desplazamientos laterales.
 
-2.  **Centralización y Análisis:**
-    *   El **Servidor Wazuh** recibe y correlaciona las alertas de Suricata y del agente, presentándolas en una interfaz unificada.
+### 2. ChatOps: Colaboración en Slack
+*   **Canales por Severidad:** Las alertas se clasifican y envían a diferentes canales de Slack según su nivel de importancia, simulando un entorno SOC profesional.
+*   **Triaje con Emojis (👀):** Los analistas de seguridad marcan las alertas en revisión con el emoji de "ojos".
+*   **Bot de Alertas Destacadas:** Un bot programado monitoriza estas reacciones; cuando una alerta es marcada, se destaca automáticamente en un canal de "Alta Prioridad" para garantizar que el equipo de ciberseguridad le dé atención inmediata.
 
-3.  **Respuesta Automatizada (SOAR):**
-    *   Al detectarse una alerta crítica, Wazuh activa una respuesta automática a través de **Ansible**.
-    *   **Ansible** se conecta a la máquina víctima y ejecuta una acción de contención, como bloquear la dirección IP del atacante en su firewall local.
+---
 
 ## 📦 Tecnologías Clave
 
-*   **Virtualización:** VirtualBox
-*   **Sistemas Operativos:** Kali Linux, Debian/Ubuntu Server
 *   **SIEM/XDR:** Wazuh
 *   **IDS/NIDS:** Suricata
-*   **Automatización (SOAR):** Ansible 
-*   **Análisis de IA (Posible Ampliación):** Script usando Ollama
-    
+*   **Automatización (SOAR):** Ansible
+*   **Comunicación (ChatOps):** Slack API & Webhooks
+*   **Virtualización:** VirtualBox
+
+---
+
+## 📚 Bibliografía y Soporte de IA
+
+Este proyecto ha contado con una fase intensiva de investigación y desarrollo apoyada por **Inteligencia Artificial Generativa**, documentando un total de **12 sesiones de consultoría técnica** centradas en:
+*   **Depuración de Scripts:** Lógica en Bash para Active Response y procesamiento de JSON.
+*   **Hardening de Configuración:** Modificación de `ossec.conf`, gestión de reglas y protocolos de backup.
+*   **Orquestación:** Diseño de Playbooks de Ansible para la contención de incidentes.
+*   **Integración de APIs:** Conexión de flujos de trabajo entre el SIEM y plataformas de mensajería externa.
+
+---
+
 ## 📄 Licencia
-Este proyecto se ha desarrollado como parte de un trabajo académico.
+Este proyecto se ha desarrollado como parte de un trabajo académico (TFG).
