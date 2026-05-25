@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+import sys
+import json
+import requests
+
+# URL confirmada y operativa
+SLACK_WEBHOOK = "https://"
+# GITHUB --- La URL está modificada en este archivo por seguridad
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(1)
+
+    try:
+        with open(sys.argv[1], 'r') as f:
+            alert_json = json.loads(f.read())
+    except Exception:
+        sys.exit(1)
+
+    # Extraer datos básicos
+    rule = alert_json.get('rule', {})
+    level = int(rule.get('level', 0))
+    full_desc = rule.get('description', 'Alerta detectada')
+    rule_id = rule.get('id', 'N/A')
+
+    # --- FILTRO DE DESCRIPCIONES INTELIGENTE ---
+    desc_low = full_desc.lower()
+    if "pam: login session" in desc_low:
+        resumen = "Log: Sesión de usuario (PAM)"
+        status = "SESIÓN_INFO"
+    elif "successful sudo" in desc_low:
+        resumen = "Privilegios: SUDO ejecutado"
+        status = "CONTROL_ROOT"
+    elif "wazuh server started" in desc_low:
+        resumen = "Sistema: Manager Iniciado"
+        status = "BOOT_OK"
+    elif "ssh" in desc_low:
+        resumen = "Red: Actividad SSH"
+        status = "CONEXIÓN_REMOTA"
+    else:
+        resumen = full_desc
+        status = "ALERTA_ACTIVA"
+
+    # --- LÓGICA DE COLORES ---
+    if level < 3:
+        alert_color = "#36a64f"  # Verde
+        emoji = "ℹ️"
+    elif level == 3:
+        alert_color = "#ff9800"  # Naranja/Amarillo
+        emoji = "⚠️"
+    else:
+        alert_color = "#e01e1e"  # Rojo (Superior a 3)
+        emoji = "🚨"
+
+    # Extraer IP de múltiples fuentes
+    data = alert_json.get('data', {})
+    srcip = (
+        data.get('srcip') or
+        data.get('src_ip') or
+        alert_json.get('srcip') or
+        data.get('source', {}).get('ip') or
+        "Sistema Local"
+    )
+
+    # Formato terminal limpio y descriptivo
+    terminal_text = (
+        f"```"
+        f"TIPO:    {resumen}\n"
+        f"RULE_ID: {rule_id}\n"
+        f"ORIGEN:  {srcip}\n"
+        f"AGENTE:  {alert_json.get('agent', {}).get('name', 'Wazuh')}\n"
+        f"---------------------------\n"
+        f"ESTADO:  {status}\n"
+        f"```"
+    )
+
+    payload = {
+        "attachments": [
+            {
+                "color": alert_color,
+                "title": f"{emoji} NIVEL {level}: {full_desc}",
+                "text": terminal_text,
+                "footer": "Wazuh Real-Time Monitoring",
+                "ts": alert_json.get('timestamp_epoch')
+            }
+        ]
+    }
+
+    try:
+        requests.post(SLACK_WEBHOOK, json=payload, timeout=5)
+    except Exception:
+        pass
+
+if __name__ == "__main__":
+    main()
