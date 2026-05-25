@@ -1,0 +1,15 @@
+---
+- hosts: victimas
+  become: yes
+  tasks:
+    - name: Desbloqueo Manual
+      shell: |
+        IP="{{ ip_a_bloquear }}"
+        if [[ "$IP" == *:* ]]; then
+            ip6tables -D INPUT -s "$IP" -j DROP || true
+        else
+            iptables -D INPUT -s "$IP" -j DROP || true
+        fi
+      args:
+        executable: /bin/bash
+
