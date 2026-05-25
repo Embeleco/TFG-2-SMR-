@@ -1,0 +1,23 @@
+---
+- hosts: victimas
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Bloqueo inteligente (Wazuh + Manual)
+      shell: |
+        if [ ! -z "{{ ip_a_bloquear | default('') }}" ]; then
+            IP="{{ ip_a_bloquear }}"
+        else
+            read -t 2 INPUT
+            IP=$(echo $INPUT | python3 -c "import sys, json; print(json.load(sys.stdin)['parameters']['alert']['srcip'])")
+        fi
+
+        [ -z "$IP" ] && exit 0
+
+        if [[ "$IP" == *:* ]]; then
+            ip6tables -C INPUT -s "$IP" -j DROP || ip6tables -I INPUT -s "$IP" -j DROP
+        else
+            iptables -C INPUT -s "$IP" -j DROP || iptables -I INPUT -s "$IP" -j DROP
+        fi
+      args:
+        executable: /bin/bash
