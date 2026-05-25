@@ -1,0 +1,2 @@
+[victimas]
+victima-web ansible_host=10.0.0.3 ansible_user=nazi
