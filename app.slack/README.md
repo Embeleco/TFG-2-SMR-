@@ -35,6 +35,6 @@ El flujo finaliza notificando a un canal de supervisión para auditoría:
 ## 📸 Guía de Configuración Visual
 *(En esta sección se incluyen las capturas de pantalla de la interfaz de configuración)*
 
-1. **Configuración del Activador:** [Insertar captura 1]
-2. **Lógica de Respuesta:** [Insertar captura 2]
-3. **Redirección de Alertas:** [Insertar captura 3]
+1. **Configuración del Activador:** ![Insertar captura 1](Capturas/paso1.jpg)
+3. **Lógica de Respuesta:** ![Insertar captura 2](Capturas/paso2.jpg)
+4. **Redirección de Alertas:** ![Insertar captura 3](Capturas/paso3.jpg)
