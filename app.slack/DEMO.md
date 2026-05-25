@@ -25,7 +25,8 @@ Paralelamente, el flujo redirige la información crítica al canal `#alertas-rea
 
 ---
 
-## 📈 Beneficios Observados
-*   **Reducción del ruido:** El 80% de la conversación sobre la alerta ocurre en hilos.
-*   **Trazabilidad:** Cada alerta tiene un "dueño" asignado mediante el registro de Slack.
-*   **Velocidad:** El tiempo de respuesta inicial se reduce a segundos.
+## 📈 Beneficios del Sistema
+
+*   **Optimización del Canal:** El 80% de la comunicación técnica se desplaza a los hilos, manteniendo el canal principal limpio para nuevas alertas.
+*   **Responsabilidad y Trazabilidad:** Al quedar registrado el analista que interactúa con la alerta, se establece una responsabilidad clara sobre el incidente.
+*   **Reducción de Latencia:** El flujo automatizado permite que la respuesta inicial y la notificación al equipo ocurran en cuestión de segundos.
