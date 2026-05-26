@@ -11,3 +11,4 @@ Para la resolución de problemas técnicos complejos y la generación de lógica
 *   **OpenAI ChatGPT:** [https://openai.com](https://openai.com) – Apoyo en la búsqueda de información complementaria y contraste de datos técnicos.
 *   **Ansible.ia:** [https://ansible.com](https://ansible.com) – Optimización de procesos de automatización y configuración de infraestructura.
 *   **Venice.ai:** [https://venice.ai](https://venice.ai) – Consultas sobre arquitectura inicial con enfoque en privacidad y soberanía de datos.
+*   **Brave.ai:** [https://search.brave.com/](https://search.brave.com/) – Apoyo en la búsqueda de información complementaria y contraste de datos técnicos.
