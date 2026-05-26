@@ -9,6 +9,5 @@ Para la resolución de problemas técnicos complejos y la generación de lógica
 
 *   **Google Gemini:** [https://google.com](https://google.com) – Motor principal para la resolución de errores en tiempo real y creación de scripts técnicos.
 *   **OpenAI ChatGPT:** [https://openai.com](https://openai.com) – Apoyo en la búsqueda de información complementaria y contraste de datos técnicos.
-*   **Ansible.ia:** [https://ansible.com](https://ansible.com) – Optimización de procesos de automatización y configuración de infraestructura.
 *   **Venice.ai:** [https://venice.ai](https://venice.ai) – Consultas sobre arquitectura inicial con enfoque en privacidad y soberanía de datos.
 *   **Brave.ai:** [https://search.brave.com/](https://search.brave.com/) – Apoyo en la búsqueda de información complementaria y contraste de datos técnicos.
